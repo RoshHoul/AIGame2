@@ -35,10 +35,11 @@ public class AICrowdManager : MonoBehaviour
         if (Humans.Count <= populationCount) {
             Debug.Log("IN IF " + Humans.Count) ;
             //SpawnHuman();
-            GameObject human = Instantiate(humanPrefab, SpawnPoints[0].position, transform.rotation);
+            GameObject human = Instantiate(humanPrefab, SpawnPoints[RandomGenerator()].position, transform.rotation);
             Humans.Add(human.GetComponent<Peasant>());
-            Humans[Humans.Count - 1].SetGoal(EntryPoints[0]);
+            Humans[Humans.Count - 1].SetGoal(EntryPoints[RandomGenerator()]);
             Humans[Humans.Count - 1].previousGoal = SpawnPoints[0];
+            Humans[Humans.Count - 1].SetState(Peasant.State.WALKING);
 
             
         }        
