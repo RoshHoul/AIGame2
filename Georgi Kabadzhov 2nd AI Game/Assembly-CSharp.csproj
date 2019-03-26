@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AICrowdManager.cs" />
+     <Compile Include="Assets\Scripts\CharacterCinematic.cs" />
      <Compile Include="Assets\Scripts\Peasant.cs" />
      <None Include="Assets\MedievalTownExteriors\Readme.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">

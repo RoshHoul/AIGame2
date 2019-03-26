@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1884545848}
   m_Layer: 0
   m_Name: Peasant
-  m_TagString: Untagged
+  m_TagString: Peasant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {fileID: 0}
   previousGoal: {fileID: 0}
-  state: 0
+  state: 1
 --- !u!195 &1884545848
 NavMeshAgent:
   m_ObjectHideFlags: 0

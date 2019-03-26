@@ -26,18 +26,31 @@ public class Peasant : MonoBehaviour
         agent = this.GetComponent<NavMeshAgent>();
         crowdManager = GameObject.Find("CrowdManager").GetComponent<AICrowdManager>();
 
-        state = State.IDLE;
-        Debug.Log("In start");
+        SetState(State.WALKING);
+        animController.SetBool("Walking", true);
         
+        // setting coroutines variables
         waitActive = false;
         switchState = false;
+
+        //randomizing the navmesh
+        float pSpeed = Random.Range(1.2f, 2.1f);
+        float pStopDist = Random.Range (2.6f, 4.0f);
+        agent.speed = pSpeed;
+        agent.stoppingDistance = pStopDist;
+
+        if ((state == State.WALKING) && (goal == null)) {
+            goal = crowdManager.GoalRequest(previousGoal);
+        }
+
+        animController.SetBool("Walking", true);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(state == State.WALKING) {
-            if (goal == null && previousGoal != null) {
+            if (goal == null ) {
                 goal = crowdManager.GoalRequest(previousGoal);    
             }
             walking = true;
@@ -47,12 +60,7 @@ public class Peasant : MonoBehaviour
             
             if (agent.remainingDistance <= agent.stoppingDistance) {
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) {
-                    previousGoal = goal;
-                    if (previousGoal.gameObject.tag == "EntryPoints") { 
-                        goal = crowdManager.GoalRequest(previousGoal);
-                    } else {
-                        state = State.IDLE;
-                    }
+                    state = State.IDLE;
                 }
             }     
         } 
@@ -61,18 +69,26 @@ public class Peasant : MonoBehaviour
             walking = false;
             animController.SetBool("Walking", walking);
             animController.SetInteger("RandomIdle", RandomNumber());
-            if (!waitActive) {
-                StartCoroutine(IdlePause(3f));
-            }
-            if (switchState) {
-                agent.isStopped = false;
-                walking = true;
-                animController.SetBool("Walking", walking);
-                state = State.WALKING;
-                previousGoal = goal;
-                goal = crowdManager.GoalRequest(previousGoal);
+            if (!crowdManager.IsSpawnReached(previousGoal)) {
+                if (!waitActive) {
+                    float timer = Random.Range(1.0f, 4.0f); 
+                    StartCoroutine(IdlePause(timer));
+                }
+                if (switchState) {
+                    agent.isStopped = false;
+                    walking = true;
+                    animController.SetBool("Walking", walking);
+                    state = State.WALKING;
+                    previousGoal = goal;
+                    goal = crowdManager.GoalRequest(previousGoal);
+                    switchState = false;
+                }
+            } else {
 
-                switchState = false;
+                crowdManager.RemovePeasant(this);
+                Destroy(this.gameObject);
+
+                Debug.Log("Spawn Reached");
             }
 
 
