@@ -53,9 +53,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AICrowdManager.cs" />
-     <Compile Include="Assets\Scripts\CharacterCinematic.cs" />
-     <Compile Include="Assets\Scripts\Peasant.cs" />
+     <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
+     <Compile Include="Assets\Scripts\Level1\AICrowdManager.cs" />
+     <Compile Include="Assets\Scripts\Level1\CharacterCinematic.cs" />
+     <Compile Include="Assets\Scripts\Level1\FatherNPC.cs" />
+     <Compile Include="Assets\Scripts\Level1\ParticleEffectPath.cs" />
+     <Compile Include="Assets\Scripts\Level1\Peasant.cs" />
+     <Compile Include="Assets\Scripts\Level2\AIManager.cs" />
+     <Compile Include="Assets\Scripts\Level2\Cannon.cs" />
+     <Compile Include="Assets\Scripts\Level2\CannonBall.cs" />
+     <Compile Include="Assets\Scripts\Level2\GoalData.cs" />
+     <Compile Include="Assets\Scripts\Level2\SquadManager.cs" />
+     <Compile Include="Assets\Scripts\Level2\Unit.cs" />
      <None Include="Assets\MedievalTownExteriors\Readme.txt" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>C:/Uni Work/3rd year 2nd half/Games and AI/AIGame2/Georgi Kabadzhov 2nd AI Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

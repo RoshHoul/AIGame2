@@ -8,6 +8,9 @@ TagManager:
   - SpawnPoints
   - EntryPoints
   - Peasant
+  - Wall
+  - SquadMicroGoal
+  - Unit
   layers:
   - Default
   - TransparentFX
