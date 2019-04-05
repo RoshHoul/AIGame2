@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.Characters.FirstPerson;
 
+
+//Script that disables player input in the first 10 seconds of game
 public class CharacterCinematic : MonoBehaviour
 {
     [SerializeField]

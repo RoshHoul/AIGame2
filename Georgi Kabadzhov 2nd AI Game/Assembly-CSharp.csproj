@@ -53,16 +53,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FireExplosionVFX\Scripts\FxSplash.cs" />
+     <Compile Include="Assets\FireExplosionVFX\Scripts\LaunchEffect.cs" />
      <Compile Include="Assets\Pixelplacement\iTweenPath\iTweenPath.cs" />
+     <Compile Include="Assets\Scripts\Exit.cs" />
      <Compile Include="Assets\Scripts\Level1\AICrowdManager.cs" />
      <Compile Include="Assets\Scripts\Level1\CharacterCinematic.cs" />
      <Compile Include="Assets\Scripts\Level1\FatherNPC.cs" />
+     <Compile Include="Assets\Scripts\Level1\LevelEnd.cs" />
+     <Compile Include="Assets\Scripts\Level1\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Level1\ParticleEffectPath.cs" />
      <Compile Include="Assets\Scripts\Level1\Peasant.cs" />
-     <Compile Include="Assets\Scripts\Level2\AIManager.cs" />
      <Compile Include="Assets\Scripts\Level2\Cannon.cs" />
      <Compile Include="Assets\Scripts\Level2\CannonBall.cs" />
-     <Compile Include="Assets\Scripts\Level2\GoalData.cs" />
+     <Compile Include="Assets\Scripts\Level2\Defender.cs" />
      <Compile Include="Assets\Scripts\Level2\SquadManager.cs" />
      <Compile Include="Assets\Scripts\Level2\Unit.cs" />
      <None Include="Assets\MedievalTownExteriors\Readme.txt" />

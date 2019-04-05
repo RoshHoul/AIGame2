@@ -280,12 +280,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe1f7f72afc2424d800baab0d37b464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numUnits: 0
+  numUnits: 16
   UnitGoals: []
   Units: []
   positionMap: 00000000000000000000000000000000
   goal: {fileID: 0}
   unitPrefab: {fileID: 0}
+  formation: 0
 --- !u!195 &2940571532813944813
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -88,10 +88,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6884936487219126772}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.9
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &782353242606260798
 Rigidbody:
@@ -124,3 +124,4 @@ MonoBehaviour:
   power: 10
   radius: 5
   upforce: 1
+  explosion: {fileID: 19861408, guid: 5ff7098700dbdbf4a93dc6ab0d9d92a0, type: 3}

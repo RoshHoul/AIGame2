@@ -21,6 +21,7 @@ public class Peasant : MonoBehaviour
 
     public State state;    
 
+    //Variables are set on awake to ensure they are instantiated without any null values
     void Awake() {
         animController = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();
@@ -49,6 +50,7 @@ public class Peasant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //In walking state, the AI looks for a waypoint, reaches it and changes state to IDLE
         if(state == State.WALKING) {
             if (goal == null ) {
                 goal = crowdManager.GoalRequest(previousGoal);    
@@ -64,6 +66,7 @@ public class Peasant : MonoBehaviour
                 }
             }     
         } 
+        //In idle state the AI choses one randoum animation and waits for n seconds. Then changes again to walking
         else if (state == State.IDLE) {
             agent.isStopped = true;
             walking = false;
@@ -88,13 +91,9 @@ public class Peasant : MonoBehaviour
                 crowdManager.RemovePeasant(this);
                 Destroy(this.gameObject);
 
-                Debug.Log("Spawn Reached");
             }
 
 
-            if (agent.remainingDistance > agent.stoppingDistance) {
-          //     state = State.WALKING; 
-            }
 
         }
     }

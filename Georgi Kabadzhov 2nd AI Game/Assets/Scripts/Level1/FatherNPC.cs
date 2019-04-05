@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//Simple AI to follow preset path
 public class FatherNPC : MonoBehaviour
 {
 

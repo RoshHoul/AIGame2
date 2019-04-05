@@ -11,6 +11,9 @@ TagManager:
   - Wall
   - SquadMicroGoal
   - Unit
+  - Cannon
+  - Defender
+  - LevelManager
   layers:
   - Default
   - TransparentFX

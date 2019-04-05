@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script to trigger the cannons in level 2. They are either triggered by player input, or by NPC's location.
 public class Cannon : MonoBehaviour
 {
     [SerializeField]
@@ -24,8 +25,7 @@ public class Cannon : MonoBehaviour
     void Update() {
         if (canShoot) {
             if (Input.GetMouseButtonDown(0) && !shotFired) {
-                GameObject projClone = Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
-                projClone.GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3(0,0,projSpeed));
+                Shoot();
                 shotFired = true;
             }
 
@@ -35,9 +35,18 @@ public class Cannon : MonoBehaviour
         }
     }
 
+    void Shoot() {
+        GameObject projClone = Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
+        projClone.GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3(0,0, projSpeed));
+    }
+
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player")
             canShoot = true;
+        else if (other.gameObject.tag == "Defender") {
+            Shoot();
+            Debug.Log("Defenderwe");
+        }
     }
 
     void OnTriggerExit(Collider other) {

@@ -40,6 +40,7 @@ public class AICrowdManager : MonoBehaviour
         }
     }
 
+    //Creating a new human every 0.3 seconds);
     // Update is called once per frame
     void Update()
     {
@@ -58,7 +59,7 @@ public class AICrowdManager : MonoBehaviour
         }        
     }
 
-    //The first and the last two elements of waypoints are entries or spawns. Remove the magic numbers (todo:)
+    //Requests for new targets by the individual AI
     public Transform GoalRequest(Transform prevGoal) {
         return Waypoints[Random.Range(0, Waypoints.Count-1)];
     }
@@ -82,6 +83,7 @@ public class AICrowdManager : MonoBehaviour
         waitActive = false;
     }
 
+    //Remove human from collections
     public void RemovePeasant(Peasant p) {
         if (Humans.Contains(p)) {
            Humans.Remove(p); 

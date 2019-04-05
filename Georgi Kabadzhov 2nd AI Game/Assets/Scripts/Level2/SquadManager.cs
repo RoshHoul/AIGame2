@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//Class for managing a squad of units
 public class SquadManager : MonoBehaviour
 {
     public int numUnits;
@@ -14,10 +15,15 @@ public class SquadManager : MonoBehaviour
     public Transform goal; 
 
     public GameObject unitPrefab;
-
-    public enum Formation { Square, Triangle};
-
+    public enum Formation { Square, Triangle, Break};
     public Formation formation;
+    private bool waitActive, performCheck = false;
+
+    public AnimationCurve critical;
+    public AnimationCurve healthy;
+
+    private float criticalValue = 0f;
+    private float healthyValue = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,29 +33,19 @@ public class SquadManager : MonoBehaviour
         tempObj.transform.parent = gameObject.transform;
         goal = tempObj.transform;
 
-        int debugCounter = 0;
 
         foreach (Transform child in transform) {
             if (child.gameObject.tag == "SquadMicroGoal") {
-                Debug.Log(debugCounter);
-                debugCounter++;
                 UnitGoals.Add(child.gameObject);
             }
         }
 
-/*      for (int i = 0; i < numUnits; i++) {
-            GameObject tempUnitGoal = new GameObject();
-            tempUnitGoal.transform.parent = gameObject.transform;
-            UnitGoals.Add(tempUnitGoal);
-        }
-*/
         for (int i = 0; i < numUnits; i++) {
             positionMap[i] = false;
         }
 
 
         for (int i = 0; i < numUnits; i++) {
-            Debug.Log("in instanciation: " + i);
             GameObject unit = Instantiate(unitPrefab, UnitGoals[i].transform.position, transform.rotation);
             unit.transform.parent = gameObject.transform;
             Units.Add(unit);
@@ -61,27 +57,56 @@ public class SquadManager : MonoBehaviour
         //goal = wallTemp.transform;
         float goalAreaX = wallTemp.GetComponent<Renderer>().bounds.size.x / 2;
         Vector3 center = wallTemp.GetComponent<Renderer>().bounds.center;
-        float goalX = center.x + Random.Range(-goalAreaX, goalAreaX);
+        float goalX = center.x + Random.Range(-goalAreaX/2, goalAreaX/2);
         float goalZ = wallTemp.transform.position.z;
-        goal.position = new Vector3(goalX, 0, goalZ);
+        goal.position = new Vector3(goalX, 0, goalZ + 5);
 
         agent.SetDestination(goal.position);
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+    public void EvaluateStatements() {
+        int aliveUnits = Units.Count;
+
+        healthyValue = healthy.Evaluate(aliveUnits);
+        criticalValue = critical.Evaluate(aliveUnits);
+
+        UpdateFormation();
     }
 
+    private void UpdateFormation() {
+        float decision = Random.Range(0f, 100f);
+        float rangeMin = 0f;    
+        float rangeMax = 100f;
+
+        if (Mathf.Round(criticalValue * 100.0f)/100.0f > 0 ) {
+            rangeMax = criticalValue * 100.0f;
+            if (decision > rangeMin && decision < rangeMax) {
+                formation = Formation.Break;
+                
+            } else {
+                //Keep Attacking / Regroup
+                //formation = Triangle/Square
+            }
+            ExecuteFormation();
+        }
+    } 
+
+
     //TODO:
-    private void SetFormation() {
+    private void ExecuteFormation() {
         if (formation == Formation.Square) {
             for ( int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
-                    
+                   //GoalUnits = vec3(.., .., ..) 
                 }
+            }
+        }
+
+        if (formation == Formation.Break) {
+            foreach (GameObject unit in Units) {
+                unit.GetComponent<Unit>().Panic();
             }
         }
     }
@@ -92,8 +117,22 @@ public class SquadManager : MonoBehaviour
             if (positionMap[i] == false) {
                 positionMap[i] = true;
                 return UnitGoals[i].transform;
-            } 
+            }
         }
         return null;
+    }
+
+    public void DeadUnit(GameObject deadUnit) {
+        Units.Remove(deadUnit);
+    }
+
+    //Fuzzy logic
+
+    private IEnumerator SquadCheck(float timer) {
+        waitActive = true;
+        yield return new WaitForSeconds(timer);
+        performCheck = true;
+        waitActive = false;
+
     }
 }
